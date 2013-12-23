@@ -19,7 +19,7 @@
   <packaging>pom</packaging>
 
   <modules>
-    <module>kie-inbound-gateway</module>
+    <module>kie-ws-inbound-gateway</module>
   </modules>
 
   <properties>

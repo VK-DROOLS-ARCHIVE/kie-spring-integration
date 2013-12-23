@@ -10,7 +10,7 @@
 
   <modelVersion>4.0.0</modelVersion>
 
-  <artifactId>kie-inbound-gateway</artifactId>
+  <artifactId>kie-ws-inbound-gateway</artifactId>
   <packaging>war</packaging>
 
   <dependencies>
