@@ -16,7 +16,11 @@
   <name>Kie :: Spring Integration</name>
   <description>Drools and jBPM integration for Spring Integration.</description>
 
-  <packaging>war</packaging>
+  <packaging>pom</packaging>
+
+  <modules>
+    <module>kie-inbound-gateway</module>
+  </modules>
 
   <properties>
     <version.spring.integration>2.0.0.RELEASE</version.spring.integration>
@@ -27,16 +31,6 @@
     <dependency>
       <groupId>org.kie</groupId>
       <artifactId>kie-spring</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.integration</groupId>
-      <artifactId>spring-integration-xml</artifactId>
-      <version>${version.spring.integration}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.integration</groupId>
-      <artifactId>spring-integration-ws</artifactId>
-      <version>${version.spring.integration}</version>
     </dependency>
 
     <dependency>

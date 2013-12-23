@@ -1,2 +1,2 @@
-kie-spring-annotations
+kie-spring-integration
 ======================

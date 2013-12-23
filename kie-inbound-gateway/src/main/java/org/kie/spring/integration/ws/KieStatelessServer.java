@@ -4,24 +4,17 @@ package org.kie.spring.integration.ws;
 import com.thoughtworks.xstream.XStream;
 import org.drools.core.command.runtime.BatchExecutionCommandImpl;
 import org.drools.core.common.DefaultFactHandle;
-import org.drools.core.impl.StatefulKnowledgeSessionImpl;
 import org.drools.core.runtime.help.impl.XStreamHelper;
 import org.drools.core.runtime.impl.ExecutionResultImpl;
 import org.kie.api.runtime.ExecutionResults;
 import org.kie.api.runtime.StatelessKieSession;
-import org.kie.spring.integration.helper.KieServerHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.integration.xml.source.DomSourceFactory;
-import org.springframework.web.context.support.WebApplicationContextUtils;
 
-import javax.inject.Inject;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
 import javax.xml.transform.Result;
 import javax.xml.transform.Source;
 import javax.xml.transform.Transformer;
@@ -31,7 +24,6 @@ import javax.xml.transform.stream.StreamResult;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
-import java.io.StringWriter;
 import java.util.Map;
 
 public class KieStatelessServer implements ApplicationContextAware {

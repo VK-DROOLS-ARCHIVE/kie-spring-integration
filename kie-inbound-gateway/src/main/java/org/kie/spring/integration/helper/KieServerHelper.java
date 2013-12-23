@@ -10,13 +10,11 @@ import org.springframework.ws.pox.dom.DomPoxMessage;
 import org.springframework.ws.pox.dom.DomPoxMessageFactory;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
-import java.io.IOException;
 import java.io.StringReader;
 
 public class KieServerHelper {

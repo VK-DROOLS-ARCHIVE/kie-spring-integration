@@ -46,7 +46,7 @@ import static org.junit.Assert.assertThat;
 public class InContainerTests {
 
     private static final Logger logger               = LoggerFactory.getLogger(InContainerTests.class);
-	private static final String WS_URI = "http://localhost:8080/kie-spring-integration-6.1.0-SNAPSHOT/kieservice";
+	private static final String WS_URI = "http://localhost:8080/kie-inbound-gateway-6.0.1.Final/kieservice";
 	private final WebServiceTemplate template = new WebServiceTemplate();
 
 	@Test
