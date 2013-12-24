@@ -22,6 +22,7 @@
     <module>kie-ws-inbound-gateway</module>
     <module>kie-http-inbound-gateway</module>
     <module>kie-spring-integration-commons</module>
+    <module>kie-jms-inbound-gateway</module>
   </modules>
 
   <properties>
