@@ -1,5 +1,9 @@
 kie-ws-inbound-gateway
-===================
+======================
+**Gateway**
+Gateways provide a convenient way to expose a Proxy over a service-interface thus giving you POJO-based access to a messaging system (based on objects in your own domain, or primitives/Strings, etc). However, when you invoke a method, you expect the method to return. A gateway's method call represents a contract with the messaging system, which states that for each request, there will always be a reply. 
+
+
 This sample demonstrates a Kie Server, configured using a inbound Web Service Gateway. Take a look at `web.xml` in the WEB-INF directory where the Spring Web Services Message-dispatching Servlet is defined. Then have a look at the `spring-ws-config.xml` file (also in the WEB-INF directory) where the Spring WS EndpointMapping is defined. Finally view the Spring Integration configuration in the `kie-server.xml` file within the `org.kie.spring.integration.ws` package where the actual gateway is defined along with a channel and service-activator.
 
 To use the gateway, you can run the tests that are located within the "src/test/java" directory. One is for standalone testing of the gateway itself, while the other tests the gateway running on a web server. The latter uses Spring Web Services' client-side support. Alternatively, you can simply start the server, and then send invocations with any standalone HTTP client testing tool. The request format should be similar to the following and should be POSTed to the service URL e.g. `http://localhost:8080/kie-inbound-gateway-6.0.1.Final/kieservice`:

@@ -16,12 +16,13 @@
 
 package org.kie.spring.integration.ws;
 
+import com.thoughtworks.xstream.XStream;
+import org.drools.core.runtime.help.impl.XStreamHelper;
 import org.junit.Test;
 import org.kie.api.command.BatchExecutionCommand;
 import org.kie.api.command.Command;
 import org.kie.internal.command.CommandFactory;
 import org.kie.spring.beans.Person;
-import org.kie.spring.integration.helper.KieServerHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.ws.client.core.WebServiceTemplate;
@@ -53,7 +54,7 @@ public class InContainerTests {
 	public void testWebServiceRequestAndResponse() throws Exception{
 		StringResult result = new StringResult();
 
-        String xml = new KieServerHelper().toXML(getBatchExecutionCommand());
+        String xml = toXML(getBatchExecutionCommand());
 
 		Source payload = new StringSource(xml);
 
@@ -78,4 +79,9 @@ public class InContainerTests {
         return CommandFactory.newBatchExecution(commands, "ksession1");
     }
 
+    protected String toXML(BatchExecutionCommand batchExecutionCommand) throws Exception {
+        XStream xStream = new XStream();
+        XStreamHelper.setAliases(xStream);
+        return xStream.toXML(batchExecutionCommand);
+    }
 }

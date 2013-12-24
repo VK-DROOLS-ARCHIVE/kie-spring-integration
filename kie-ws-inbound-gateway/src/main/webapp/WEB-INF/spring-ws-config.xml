@@ -3,7 +3,7 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-	<import resource="classpath:/META-INF/spring/integration/kie-server.xml"/>
+	<import resource="classpath:/META-INF/spring/integration/kie-ws-server.xml"/>
 
 	<!-- Ensures that all incoming requests will be routed to the ws:inbound-gateway -->
 	<bean class="org.springframework.ws.server.endpoint.mapping.UriEndpointMapping">

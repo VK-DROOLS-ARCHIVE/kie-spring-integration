@@ -30,6 +30,4 @@
     <bean class="org.kie.spring.integration.ws.KieStatelessServer"/>
   </int:service-activator>
 
-  <bean id="kieServerHelper" class="org.kie.spring.integration.helper.KieServerHelper"/>
-
 </beans>

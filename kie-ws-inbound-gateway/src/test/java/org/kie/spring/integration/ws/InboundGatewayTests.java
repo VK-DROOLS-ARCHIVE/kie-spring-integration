@@ -16,24 +16,33 @@
 
 package org.kie.spring.integration.ws;
 
+import com.thoughtworks.xstream.XStream;
+import org.drools.core.runtime.help.impl.XStreamHelper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.kie.api.KieBase;
 import org.kie.api.command.BatchExecutionCommand;
 import org.kie.api.command.Command;
 import org.kie.internal.command.CommandFactory;
-import org.kie.spring.integration.helper.KieServerHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.integration.ws.SimpleWebServiceInboundGateway;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.ws.context.DefaultMessageContext;
 import org.springframework.ws.context.MessageContext;
+import org.springframework.ws.pox.dom.DomPoxMessage;
+import org.springframework.ws.pox.dom.DomPoxMessageFactory;
+import org.w3c.dom.Document;
+import org.xml.sax.InputSource;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
+import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,7 +52,7 @@ import static org.junit.Assert.assertTrue;
 /**
  * Out-of-container tests for ws:inbound-gateway message processing.
  */
-@ContextConfiguration("/META-INF/spring/integration/kie-server.xml")
+@ContextConfiguration("/META-INF/spring/integration/kie-ws-server.xml")
 @RunWith(SpringJUnit4ClassRunner.class)
 public class InboundGatewayTests {
 
@@ -52,10 +61,6 @@ public class InboundGatewayTests {
 
     @Autowired
     private ApplicationContext applicationContext;
-
-    @Autowired
-    KieServerHelper kieServerHelper;
-
 
     @Test
     public void testContext() throws Exception {
@@ -79,7 +84,7 @@ public class InboundGatewayTests {
 	public void testSendAndReceive() throws Exception {
 
         BatchExecutionCommand batchExecutionCommand = getBatchExecutionCommand();
-        MessageContext messageContext = kieServerHelper.createXMLMessageContext(batchExecutionCommand, false);
+        MessageContext messageContext = createXMLMessageContext(batchExecutionCommand, false);
 
 		gateway.invoke(messageContext);
 		Object reply = messageContext.getResponse().getPayloadSource();
@@ -112,5 +117,27 @@ public class InboundGatewayTests {
         StreamResult result = new StreamResult(System.out);
         transformer.transform(domSource, result);
         System.out.println("---------- end of response --------------");
+    }
+
+    public MessageContext createXMLMessageContext(String xml, boolean namespaceAware) throws Exception {
+        DomPoxMessageFactory messageFactory = new DomPoxMessageFactory();
+        DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+        documentBuilderFactory.setNamespaceAware(namespaceAware);
+        DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
+        Document document = documentBuilder.parse(new InputSource(new StringReader(xml)));
+        Transformer transformer = TransformerFactory.newInstance().newTransformer();
+        DomPoxMessage request = new DomPoxMessage(document, transformer, "text/xml");
+        return new DefaultMessageContext(request, messageFactory);
+    }
+
+    public MessageContext createXMLMessageContext(BatchExecutionCommand batchExecutionCommand, boolean namespaceAware) throws Exception {
+        String xml = toXML(batchExecutionCommand);
+        return createXMLMessageContext(xml, namespaceAware);
+    }
+
+    protected String toXML(BatchExecutionCommand batchExecutionCommand) throws Exception {
+        XStream xStream = new XStream();
+        XStreamHelper.setAliases(xStream);
+        return xStream.toXML(batchExecutionCommand);
     }
 }
