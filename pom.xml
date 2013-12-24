@@ -27,6 +27,7 @@
   <properties>
     <version.spring.integration>2.0.0.RELEASE</version.spring.integration>
     <spring.version>3.1.3.RELEASE</spring.version>
+    <project.version>6.0.1.Final</project.version>
   </properties>
 
   <dependencies>

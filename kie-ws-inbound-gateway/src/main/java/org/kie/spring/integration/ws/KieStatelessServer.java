@@ -26,7 +26,6 @@ public class KieStatelessServer extends AbstractKieServer {
 
     private static final Logger log               = LoggerFactory.getLogger(KieStatelessServer.class);
 
-
     public Source execute(DOMSource request) {
 
         XStream xStream = new XStream();

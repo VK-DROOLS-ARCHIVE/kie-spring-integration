@@ -2,7 +2,6 @@ package org.kie.spring.integration.http;
 
 import com.thoughtworks.xstream.XStream;
 import org.drools.core.command.runtime.BatchExecutionCommandImpl;
-import org.drools.core.common.DefaultFactHandle;
 import org.drools.core.runtime.help.impl.XStreamHelper;
 import org.drools.core.runtime.impl.ExecutionResultImpl;
 import org.kie.api.runtime.ExecutionResults;
@@ -10,11 +9,6 @@ import org.kie.api.runtime.StatelessKieSession;
 import org.kie.spring.integration.AbstractKieServer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.BeansException;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
-
-import java.util.Map;
 
 public class KieHttpServer extends AbstractKieServer {
 
