@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:kie="http://drools.org/schema/kie-spring"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd
+		http://www.springframework.org/schema/integration/http http://www.springframework.org/schema/integration/http/spring-integration-http.xsd
+    http://drools.org/schema/kie-spring http://drools.org/schema/kie-spring.xsd"
+	xmlns:int="http://www.springframework.org/schema/integration"
+	xmlns:int-http="http://www.springframework.org/schema/integration/http">
+
+  <kie:kmodule id="si-test-kmodule">
+    <kie:kbase name="drl_kiesample" packages="drl_kiesample">
+      <kie:ksession name="ksession1" type="stateless"/>
+    </kie:kbase>
+  </kie:kmodule>
+
+  <bean id="kiePostProcessor" class="org.kie.spring.KModuleBeanFactoryPostProcessor"/>
+
+  <bean id="person" class="org.kie.spring.beans.Person">
+    <constructor-arg type="java.lang.String" index="0" value="HAL"/>
+    <property name="happy" value="false"/>
+  </bean>
+
+
+	<int-http:inbound-gateway request-channel="receiveChannel"
+                          name="/kieServer"
+                          supported-methods="POST" />
+                          
+	<int:channel id="receiveChannel"/>	
+	
+	<int:service-activator input-channel="receiveChannel" method="execute" >
+    <bean class="org.kie.spring.integration.http.KieHttpServer"/>
+  </int:service-activator>
+</beans>
